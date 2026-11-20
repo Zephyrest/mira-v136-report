@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mira 竞品调研 · Android v1.3.6 · 2026-11-19</title>
+<style>
+:root{--ink:#1d1b20;--sub:#5f5a66;--line:#e7e2ea;--bg:#faf8fb;--card:#fff;--accent:#c2346b;--accent2:#f6a821;--ok:#1f8a5b;--warn:#c27c0e;--q:#6b5bd6}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue",sans-serif;color:var(--ink);background:var(--bg);line-height:1.65;font-size:15px}
+header{background:linear-gradient(120deg,#ffd3e2,#f3e6ff);padding:48px 0 36px;border-bottom:1px solid var(--line)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+h1{font-size:34px;margin:0 0 6px;letter-spacing:-.5px}
+h2{font-size:23px;margin:56px 0 14px;padding-top:8px;border-top:1px solid var(--line)}
+h3{font-size:17px;margin:28px 0 10px}
+.meta{color:var(--sub);font-size:13.5px}
+nav{position:sticky;top:0;background:rgba(250,248,251,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);z-index:5}
+nav .wrap{display:flex;gap:18px;overflow-x:auto;padding-top:10px;padding-bottom:10px;font-size:13.5px;white-space:nowrap}
+nav a{color:var(--sub);text-decoration:none}nav a:hover{color:var(--accent)}
+.tldr{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:18px 22px;margin-top:28px}
+.tldr li{margin:6px 0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:22px 0}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.kpi b{display:block;font-size:22px}.kpi span{color:var(--sub);font-size:12.5px}
+table{border-collapse:collapse;width:100%;background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:10px 0 6px;font-size:14px}
+th,td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:#f3eff5;font-weight:600}
+tr:last-child td{border-bottom:0}
+code{background:#f1edf3;padding:1px 5px;border-radius:4px;font-size:12.5px}
+.tag{display:inline-block;font-size:11.5px;padding:1px 7px;border-radius:999px;font-weight:600;margin-right:4px}
+.c1{background:#dff3e8;color:var(--ok)}.c2{background:#e5f0ff;color:#2b62c4}.c3{background:#fff1d9;color:var(--warn)}.c4{background:#efeafd;color:var(--q)}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;margin:14px 0}
+figure{margin:0;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px}
+figure img{width:100%;border-radius:8px;display:block;cursor:zoom-in;aspect-ratio:9/20;object-fit:cover;object-position:top}
+figcaption{font-size:12.5px;color:var(--sub);padding:6px 2px 2px;line-height:1.45}
+figcaption b{color:var(--ink);display:block;font-size:13px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:800px){.two{grid-template-columns:1fr}}
+.box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.box h4{margin:0 0 6px;font-size:15px}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0;font-size:13.5px}
+.flow span{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:5px 10px}
+.flow i{color:var(--sub);font-style:normal}
+.note{color:var(--sub);font-size:13px}
+#lb{position:fixed;inset:0;background:rgba(20,16,24,.88);display:none;align-items:center;justify-content:center;z-index:20;cursor:zoom-out}
+#lb img{max-height:94vh;max-width:94vw;border-radius:10px}
+footer{margin:70px 0 40px;color:var(--sub);font-size:12.5px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<h1>Mira 竞品调研</h1>
+<div class="meta">Android v1.3.6 (1030625) · 包名 <code>com.mirachat.ai</code> · 开发者 MINDZEN PTE. LTD.（新加坡，Play 署名 MINDZEN AI） · 调研日期 2026-11-19 · 方法：jadx 反编译 + dex 字符串 + 模拟器实机走查 + 公开资料</div>
+<div class="tldr"><b>一句话结论：</b>Mira 是一款<b>只面向女性</b>的 AI 男友聊天应用（Play 文案原话「Mira is designed just for women」）。它的差异化不在单聊，而在<b>「偷看他」</b>这条主线：偷看他的内心独白（Inner Voice）、偷看他今天的日程（Peek / His Day）、偷看他的手机（角色手机），反过来他也会偷看你的日记并写读后感。所有聊天模式都是每条消息 1 Star，签到和激励广告给的免费 Stars 很多，付费靠 $4.99–$99.99 的 Stars 包和 $19.99/月的 Insider Pass（核心权益是随时 Peek）。
+<ul>
+<li><b>增长：</b>Google Play 500K+ 下载，4.4★，13.4K 评论，Mature 17+，2026-11-10 更新 <span class="tag c4">C4</span><span class="tag c1">C1</span>。同一开发者还有 Fantasia、Rosytalk、My Loverse、Joyland、ACTS、AITANIA，Mira 是其矩阵里的女性向产品 <span class="tag c4">C4</span>。</li>
+<li><b>内容：</b>首页是全屏竖滑的角色卡，按「霸总 / 黑手党 / 非人类 / 隔壁男孩」等题材分类，标签直白如 Possessive、Your Husband。可以在卡片上直接开聊 <span class="tag c1">C1</span>。</li>
+<li><b>模型：</b>隐私政策写明聊天走 <b>OpenRouter</b>、角色主动发的图走 <b>xAI</b>；PlotSnap、OurSnap 合照、日记、His Day 日程、角色手机和语音都用自有模型 <span class="tag c4">C4</span>。测试环境域名是 <code>mira-test.heyfriday.cn</code>，研发团队大概率在中国大陆 <span class="tag c2">C2</span><span class="tag c3">C3</span>。</li>
+<li><b>变现：</b>Stars 按包买，每 100 个 $1.25–$4.99。新用户 7 日签到共 433，激励广告每条 5 个、每天最多 30 条。商店页还挂着「即将上线」：语音通话、日程更新、视频通话、情侣空间 <span class="tag c1">C1</span>。</li>
+<li><b>对 Feva 的启示：</b>「窥视」是一个比「聊天」更强的情绪钩子，而且很适合拆成付费点。最值得借鉴的是双向日记和 Peek 日程，需要注意的是记忆衰退（评论集中吐槽）和内容语言不跟随系统语言的问题（详见第 9 节）。</li>
+</ul></div>
+<div class="kpis">
+<div class="kpi"><b>500K+</b><span>Google Play 下载</span></div>
+<div class="kpi"><b>4.4★ / 13.4K</b><span>评分 / 评论数</span></div>
+<div class="kpi"><b>57</b><span>API 路径（静态提取）</span></div>
+<div class="kpi"><b>302</b><span>埋点事件候选</span></div>
+<div class="kpi"><b>4</b><span>聊天模式（均 1 Star/条）</span></div>
+<div class="kpi"><b>59</b><span>实机截图</span></div>
+</div>
+</div></header>
+
+<nav><div class="wrap">
+<a href="#s1">1 版本与边界</a><a href="#s2">2 定位与市场</a><a href="#s3">3 新手旅程</a><a href="#s4">4 聊天系统</a><a href="#s5">5 窥视玩法</a><a href="#s6">6 功能地图</a><a href="#s6b">6.1 Miao Island</a><a href="#s7">7 商业化</a><a href="#s8">8 技术栈</a><a href="#s9">9 证据分级</a><a href="#s10">10 风险与启示</a><a href="#s11">11 附录</a>
+</div></nav>
+
+<main class="wrap">
+
+<h2 id="s1">1. 版本身份与证据边界</h2>
+<table>
+<tr><th>项</th><th>值</th></tr>
+<tr><td>样本</td><td><code>Mira+-+AI+Chat+&amp;+Companion_1.3.6_APKPure.xapk</code>，SHA-256 <code>668d8260…b3bf9f</code>（全量哈希见 <code>04_技术调研/Android_v1.3.6/input/SHA256SUMS</code>）</td></tr>
+<tr><td>结构</td><td>base + arm64_v8a + xxhdpi + 17 个语言包（含 zh、ja、ko、ar、hi、th、vi、my 等）；minSdk 26 / targetSdk 36</td></tr>
+<tr><td>技术栈</td><td>原生 Kotlin + Jetpack Compose；libgdx 做 Miao Island 地图；Google Play 完整性保护（PairIP）</td></tr>
+<tr><td>实机环境</td><td>Android arm64 模拟器，系统语言 en-US；用户本人 Google 账号登录。XAPK 侧载被 PairIP 拦截，改为从模拟器的 Play 商店安装同一版本 1.3.6</td></tr>
+<tr><td>实际操作</td><td>引导、登录、首页 feed、与 Chikage Kuze 聊天、Inner Voice、Snap it、Dislike 反馈、发一条 Love Q&amp;A、打开 OurSnap、开启 Peek 72 小时试用、切换聊天模式、角色资料四个页签、在 Miao Island 创建一个角色并聊一条、点 Mira Tree 领 Stars、签到 1 次、Stars 商店、Insider Pass、写一篇日记并授权角色阅读、读 Mira Broadcast。<b>未</b>付费、未看广告、未上传自拍、未换角色头像、未开天气提醒、未邀请好友</td></tr>
+<tr><td>未覆盖</td><td>没有抓包（真实请求体、计费扣减逻辑未验证）；没有 SensorTower 数据；Stars 流水页没找到入口，单功能扣费未逐条核对；角色手机的界面入口没有触发成功</td></tr>
+<tr><td>账号说明</td><td>这个 Google 账号在本次调研前已经用过 Mira（Esteban Navarra、Cole Mercer 两段会话，13:51 创建）。这部分不作为新手旅程证据</td></tr>
+</table>
+<p class="note">证据等级：<span class="tag c1">C1</span>实机截图 · <span class="tag c2">C2</span>安装包代码或字符串直接命中 · <span class="tag c3">C3</span>多条证据交叉推断 · <span class="tag c4">C4</span>公开资料或评论（单一来源）。截图中的用户 ID 已打码；日记内容是调研时写的测试文本。</p>
+
+<h2 id="s2">2. 产品定位与市场</h2>
+<div class="two">
+<div class="box"><h4>官方定位 <span class="tag c4">C4</span><span class="tag c1">C1</span></h4>
+Play 副标题：「AI companion chat with memory, voice, diary, photos and stories」。描述原话：「Mira is designed just for women.」登录页标语：「A million ways to feel loved.」创始团队的欢迎信写道：希望 Mira 是「a mirror in every girl's heart」，是「a little love agency that opens just for you」（截图 52）。</div>
+<div class="box"><h4>目标用户 <span class="tag c1">C1</span><span class="tag c3">C3</span></h4>
+18+ 女性，喜欢言情小说和乙游题材。首页分类有 MiraOshi、Mafia、Non-human、Boy Next Door、Anime、Mystery、Mature；角色标签如 Possessive、Protective、Your Husband、Creditor。文案里角色一律是「he / him」，埋点也叫 <code>diary_talk_with_him_click</code>。17 个语言包加上繁体中文内容输出，推断主攻欧美，同时覆盖港台和东南亚。</div>
+</div>
+<table>
+<tr><th>公开指标（Google Play，2026-11-19）</th><th>值</th></tr>
+<tr><td>下载 / 评分</td><td>500K+ / 4.4（13.4K 评论）</td></tr>
+<tr><td>分级</td><td>Mature 17+（Sexual Themes, Strong Language），含广告与应用内购买；App 内要求 18+</td></tr>
+<tr><td>最近更新</td><td>2026-11-10：角色资料和聊天设置加入「Block」；可以在 Profile 页写日记</td></tr>
+<tr><td>开发主体</td><td>MINDZEN PTE. LTD.，新加坡 77 Robinson Road；info@mindzen.sg</td></tr>
+<tr><td>同开发者产品</td><td>Fantasia 4.2、Rosytalk 4.4、My Loverse 4.8、Joyland 2.5、ACTS 4.6、AITANIA 2.8。代码里有共享基础库 <code>com.scietrain.ai</code>，推断几款产品共用一套中台 <span class="tag c3">C3</span></td></tr>
+<tr><td>评论里的主要抱怨</td><td>聊到 30–50 轮后开始混淆人名、关系和过往事件；第二周「忘了所有细节」并反复说同一句「I know the shape of you」；希望有会话搜索、希望角色能连发多条</td></tr>
+<tr><td>评论里的好评</td><td>回复自然，比其他 AI App 更像真人；Stars 很容易拿到（看广告）</td></tr>
+</table>
+
+<h2 id="s3">3. 新手旅程：先讲「偷看」，再让你开口</h2>
+<div class="flow"><span>4 页引导（Love / Inner Voice / Memory / 天气关怀）</span><i>→</i><span>18+ 与条款勾选</span><i>→</i><span>Data &amp; Privacy Notice（点名 OpenRouter、xAI）</span><i>→</i><span>Google 登录</span><i>→</i><span>推送授权</span><i>→</i><span>全屏角色卡 feed，直接在卡片上开聊</span></div>
+<div class="gallery">
+<figure><img src="shots/00_play.png" alt=""><figcaption><b>00 Play 详情</b>MINDZEN AI，4.4★、13K 评论、Mature 17+、47 MB、500K+</figcaption></figure>
+<figure><img src="shots/01_launch.png" alt=""><figcaption><b>01 首启推送授权</b>引导页第一屏就弹系统通知授权</figcaption></figure>
+<figure><img src="shots/02_onboarding_1.png" alt=""><figcaption><b>02 引导 · Love</b>「Love is him sharing his world, without you asking.」角色主动发来路上看到的三明治</figcaption></figure>
+<figure><img src="shots/03_onboarding_2.png" alt=""><figcaption><b>03 引导 · Inner Voice</b>「It's his Inner Voice whispering what he hides.」</figcaption></figure>
+<figure><img src="shots/04_onboarding.png" alt=""><figcaption><b>04 引导 · Memory</b>系统提示「He remembered something new about you」</figcaption></figure>
+<figure><img src="shots/05_onboarding.png" alt=""><figcaption><b>05 引导 · 天气关怀</b>「Oh btw — big storm tomorrow, don't forget your umbrella」</figcaption></figure>
+<figure><img src="shots/06_login.png" alt=""><figcaption><b>06 登录</b>只有 Google 登录；必须勾选 18+ 与条款，否则按钮不可用</figcaption></figure>
+<figure><img src="shots/10_home_feed.png" alt=""><figcaption><b>10 首页 feed</b>全屏角色卡：场景简介 + 角色台词 + 标签 + 底部输入框，可以直接回复</figcaption></figure>
+<figure><img src="shots/11_intro_expand.png" alt=""><figcaption><b>11 展开简介</b>第二人称开场：「You were bored at home and left for your favorite cafe…」</figcaption></figure>
+<figure><img src="shots/12_feed_card2.png" alt=""><figcaption><b>12 竖滑下一张</b>Rhett Calloway：Curious Bully、Hockey、Enemies</figcaption></figure>
+<figure><img src="shots/13_feed_card_trope.png" alt=""><figcaption><b>13 题材直给</b>Adrian Moretti：Possessive、Protective；气泡引导去 Meow 页「Create a boyfriend who's totally obsessed with you」</figcaption></figure>
+<figure><img src="shots/14_tab_mature.png" alt=""><figcaption><b>14 分类</b>Anime、Mystery、Mature 等分类横向切换</figcaption></figure>
+<figure><img src="shots/15_feed_inline_typing.png" alt=""><figcaption><b>15 卡片上直接输入</b>在 feed 里回复后即进入聊天页</figcaption></figure>
+</div>
+<p><b>拆解：</b>引导页没有让用户填兴趣，而是用四屏模拟聊天把卖点演一遍：他主动分享、你能看到他的内心独白、他会记住你、他会提醒你带伞。登录后直接进入全屏角色卡，第一句话可以在卡片上说，没有「选角色、进详情、点开始」这些步骤。和 BIMOBIMO 的「角色先开口」相比，Mira 选择的是「用户在刷卡时顺手开口」，更接近短视频的消费习惯 <span class="tag c1">C1</span>。</p>
+
+<h2 id="s4">4. 聊天系统：一条消息 1 Star，体验靠附加按钮</h2>
+<div class="gallery">
+<figure><img src="shots/16_chat_first_reply.png" alt=""><figcaption><b>16 首条回复</b>动作描写（灰字）+ 台词（白字），RP 小说体</figcaption></figure>
+<figure><img src="shots/17_chat_reply_full.png" alt=""><figcaption><b>17 回复全貌</b>一次回复拆成多个气泡</figcaption></figure>
+<figure><img src="shots/18_chat_msg_actions.png" alt=""><figcaption><b>18 消息下的三个按钮</b>Dislike（扳手）、Snap it（相机）、Inner Voice（气泡）</figcaption></figure>
+<figure><img src="shots/19_inner_voice_gate.png" alt=""><figcaption><b>19 Inner Voice 弹窗</b>「Shh — Chikage Kuze doesn't know you can see this. Take a peek?」</figcaption></figure>
+<figure><img src="shots/20_inner_voice_result.png" alt=""><figcaption><b>20 内心独白</b>揭示角色隐藏的身份线：「She just called me Adrian. That name — the one I buried seven years ago.」</figcaption></figure>
+<figure><img src="shots/21_snap_it_intro.png" alt=""><figcaption><b>21 Snap it 说明</b>用最近 10 条消息生成提示词再出图，有安全审核，色情内容会被拦截</figcaption></figure>
+<figure><img src="shots/22_snap_it_result.png" alt=""><figcaption><b>22 Snap it 成图</b>按当前剧情生成角色全身照，插入聊天流</figcaption></figure>
+<figure><img src="shots/23_dislike_feedback.png" alt=""><figcaption><b>23 即时反馈</b>「Your feedback works instantly」：显示内心独白、重复、语言不对、不要动作描写、来点意外转折</figcaption></figure>
+<figure><img src="shots/33_chat_mode.png" alt=""><figcaption><b>33 聊天模式</b>Mira（均衡）、Tele（短信体，无动作描写）、Live Moment（节奏慢、多图多贴纸）、Novel（长叙事），均 1 Star/条；顶部有语音输出开关和音色</figcaption></figure>
+<figure><img src="shots/34_chat_settings.png" alt=""><figcaption><b>34 聊天设置</b>编辑你的资料、他记得的你、换壁纸、换气泡、举报、拉黑、重置对话</figcaption></figure>
+<figure><img src="shots/35_memories.png" alt=""><figcaption><b>35 Memory</b>「The more you talk, the more he remembers」，新会话为空</figcaption></figure>
+<figure><img src="shots/46_esteban_prior_session.png" alt=""><figcaption><b>46 中文会话（账号既有）</b>账号此前的 Esteban 会话，全程繁体中文</figcaption></figure>
+</div>
+<div class="two">
+<div class="box"><h4>关键设计 <span class="tag c1">C1</span></h4>
+<ul>
+<li><b>四种模式同价：</b>Mira、Tele、Live Moment、Novel 都是 1 Star/条。模式只改变回复风格，不做价格分层，降低用户切换的顾虑。</li>
+<li><b>Inner Voice 是招牌：</b>在台词之外再给一层「他没说出口的话」，用来埋剧情线和制造暧昧，同时也是 Dislike 反馈里的一个选项，可以设为默认显示。</li>
+<li><b>反馈立即生效：</b>扳手菜单直接把常见失败（复读、语言错、动作描写太多、剧情平淡）做成按钮，下一轮回复就会调整。这是对「AI 复读」投诉的产品化回应。</li>
+<li><b>出图有两种：</b>用户主动点 Snap it（PlotSnap，自有模型），以及角色在对话中主动发图（xAI）。</li>
+<li>语音输出用自有 TTS，可选音色（例如 Magnetic Bass）。</li>
+</ul></div>
+<div class="box"><h4>后端佐证 <span class="tag c2">C2</span></h4>
+<ul>
+<li>模式：<code>chat_mode_switch_success/fail</code>、<code>chat_mode_guide_impression</code>。</li>
+<li>语音：<code>voice_msg_gen_start/success/fail</code>、<code>voice_picker_open</code>、<code>voice_transcribe_click</code>（语音转文字）。</li>
+<li>记忆：<code>memory-fragments/{id}</code>、<code>memory_add_saved</code>，用户可以手动补充记忆。</li>
+<li>反馈：<code>msg_feedback_dislike</code>、<code>feedback_transfer_human</code>（客服可转人工）。</li>
+<li>没有在静态字符串里找到发消息接口，推断聊天走 <code>com.scietrain.ai.realtime</code> 实时通道 <span class="tag c3">C3</span>。</li>
+</ul></div>
+</div>
+
+<h2 id="s5">5. 「偷看」玩法：Mira 的核心差异</h2>
+<p>Mira 把「窥视」做成了一条完整的产品线：你偷看他（内心、日程、手机），他也偷看你（日记）。这几个玩法共享一种情绪：<b>知道对方不知道我知道</b>，或者<b>被对方默默关注着</b>。</p>
+<div class="gallery">
+<figure><img src="shots/29_peek.png" alt=""><figcaption><b>29 Peek 介绍</b>「Peek Into His Day」：他的每日日程 + 甜蜜报备（起床、出门、想你时发消息）+ 晚上 10 点看当日总结和明日计划</figcaption></figure>
+<figure><img src="shots/30_peek_schedule.png" alt=""><figcaption><b>30 His Schedule</b>按时间轴列出他明天做什么，与角色设定（旅馆、债务、七年前的旧案）紧密相关</figcaption></figure>
+<figure><img src="shots/31_peek_72h_free.png" alt=""><figcaption><b>31 72H Free</b>新用户免费试用 72 小时，之后需要 Insider Pass</figcaption></figure>
+<figure><img src="shots/47_my_diary.png" alt=""><figcaption><b>47 My Diary</b>「Write your day. He'll have something to say」</figcaption></figure>
+<figure><img src="shots/48_diary_editor.png" alt=""><figcaption><b>48 写日记</b>标题 30 字、正文 2,000 字，长按可贴照片和贴纸；底部选择谁可以偷看</figcaption></figure>
+<figure><img src="shots/49_diary_peek_picker.png" alt=""><figcaption><b>49 谁可以看</b>保持私密，或分享给任意几个角色</figcaption></figure>
+<figure><img src="shots/53_diary_detail.png" alt=""><figcaption><b>53 1 peeked</b>发布后数秒即显示「Someone snuck a peek…」</figcaption></figure>
+<figure><img src="shots/54_diary_his_note.png" alt=""><figcaption><b>54 他的读后感</b>以角色口吻写读后感，并接上剧情（「明天十點還有帳要對，她若真消失，我還是會去找」）。底部「Talk about this with him」回到聊天</figcaption></figure>
+<figure><img src="shots/37_profile_diary.png" alt=""><figcaption><b>37 他的日记</b>角色资料页的 Diary 页签：他有私人日记，聊得越多写得越多</figcaption></figure>
+</div>
+<table>
+<tr><th>玩法</th><th>窥视方向</th><th>机制</th><th>付费</th><th>证据</th></tr>
+<tr><td>Inner Voice</td><td>你 → 他的内心</td><td>每条回复都可以展开他的内心独白</td><td>单次消耗未核对</td><td><span class="tag c1">C1</span></td></tr>
+<tr><td>Peek / His Day</td><td>你 → 他的日程</td><td>每天 10 点生成当日总结和次日计划；到点他会主动发消息（<code>peek_proactive_msg_send</code>）</td><td>72 小时免费，之后要 Insider Pass「anytime」</td><td><span class="tag c1">C1</span><span class="tag c2">C2</span></td></tr>
+<tr><td>角色手机</td><td>你 → 他的手机</td><td>隐私政策写「在会话中右滑查看虚构的角色手机」；埋点有密码校验、Stars 解锁、历史记录</td><td>可用 Stars 解锁（<code>peek_phone_star_unlock_click</code>）</td><td><span class="tag c2">C2</span><span class="tag c4">C4</span> 界面未触发</td></tr>
+<tr><td>他的日记</td><td>你 → 他的日记</td><td>随聊天积累自动生成，有新日记会推送（<code>diaries/latest-unnotified</code>）</td><td>未见付费</td><td><span class="tag c1">C1</span><span class="tag c2">C2</span></td></tr>
+<tr><td>My Diary</td><td>他 → 你的日记</td><td>你写日记、选择让谁看，他数秒内读完并留下读后感，还可以回到聊天继续</td><td>免费</td><td><span class="tag c1">C1</span></td></tr>
+</table>
+<p><b>拆解：</b>大部分 AI 陪伴产品只有「聊天」一个场景，用户不聊，关系就停住。Mira 用「偷看」制造了不需要用户主动输入的消费场景：晚上 10 点看他的总结，第二天看他按计划给你报备，写完日记等他的读后感。日记的读后感会接上聊天里的剧情（例子中他提到「明天十点还有账要对」，和 Peek 日程里的 10:00 会议一致），说明日记、日程和聊天共享同一份角色状态 <span class="tag c1">C1</span><span class="tag c3">C3</span>。</p>
+
+<h2 id="s6">6. 功能地图</h2>
+<div class="gallery">
+<figure><img src="shots/24_plus_menu.png" alt=""><figcaption><b>24 聊天加号</b>Photos、Camera、Love Q&amp;A、OurSnap、Peek</figcaption></figure>
+<figure><img src="shots/25_love_qa.png" alt=""><figcaption><b>25 Love Q&amp;A</b>Public / Mine 两个题库，便签纸样式，显示浏览量</figcaption></figure>
+<figure><img src="shots/26_love_qa_detail.png" alt=""><figcaption><b>26 话题详情</b>「If I disappeared for a day tomorrow, what would be the first thing you'd do?」点 Send 发给角色</figcaption></figure>
+<figure><img src="shots/27_love_qa_reply.png" alt=""><figcaption><b>27 角色作答</b>按人设长篇回答</figcaption></figure>
+<figure><img src="shots/28_oursnap.png" alt=""><figcaption><b>28 OurSnap</b>上传正脸单人照 + 选姿势模板，生成和他的合照；本次显示 FREE</figcaption></figure>
+<figure><img src="shots/36_profile_about.png" alt=""><figcaption><b>36 角色资料 · About</b>星座、MBTI、生日、简介，拍立得头像</figcaption></figure>
+<figure><img src="shots/38_profile_photos.png" alt=""><figcaption><b>38 角色资料 · Photos</b>OurSnap 合照墙、PlotSnaps、Chat Photos</figcaption></figure>
+<figure><img src="shots/39_meow_welcome.png" alt=""><figcaption><b>39 欢迎信</b>第一次进岛的说明。完整走查见 6.1</figcaption></figure>
+<figure><img src="shots/40_create_character.png" alt=""><figcaption><b>40 创建表单</b>空表单。填完并生成的结果见 6.1</figcaption></figure>
+<figure><img src="shots/45_chats_tab.png" alt=""><figcaption><b>45 Chats</b>会话列表 + Likes 页签；顶部是官方 Mira Broadcast</figcaption></figure>
+<figure><img src="shots/51_mira_broadcast.png" alt=""><figcaption><b>51 Mira Broadcast</b>官方站内信（<code>mailbox/messages</code>）</figcaption></figure>
+<figure><img src="shots/52_broadcast_letter.png" alt=""><figcaption><b>52 创始团队欢迎信</b>「a mirror in every girl's heart」「a little love agency」</figcaption></figure>
+</div>
+<table>
+<tr><th>模块</th><th>玩法</th><th>模型</th><th>计费</th><th>证据</th></tr>
+<tr><td>聊天</td><td>4 种模式、Inner Voice、语音输出、发图片、即时反馈</td><td>OpenRouter；TTS 自有</td><td>1 Star/条</td><td><span class="tag c1">C1</span><span class="tag c4">C4</span></td></tr>
+<tr><td>PlotSnap（Snap it）</td><td>把最近 10 条消息变成一张剧情图</td><td>自有图像模型</td><td>未核对</td><td><span class="tag c1">C1</span></td></tr>
+<tr><td>角色主动发图 / 贴纸</td><td>问「在干嘛」时他会回照片</td><td>xAI</td><td>含在消息里</td><td><span class="tag c4">C4</span></td></tr>
+<tr><td>OurSnap</td><td>自拍 + 姿势模板 + 相纸，生成合照</td><td>自有模型</td><td>相纸可购买（<code>photo-papers/owned|unowned</code>、<code>oursnap_film_purchase_*</code>）</td><td><span class="tag c1">C1</span><span class="tag c2">C2</span></td></tr>
+<tr><td>Love Q&amp;A</td><td>公共和自建话题，邀请角色讨论</td><td>OpenRouter</td><td>按消息计</td><td><span class="tag c1">C1</span></td></tr>
+<tr><td>Peek / 角色手机 / 日记</td><td>见第 5 节</td><td>自有模型</td><td>Pass / Stars</td><td><span class="tag c1">C1</span><span class="tag c2">C2</span></td></tr>
+<tr><td>Miao Island</td><td>见 6.1。私有自建角色住在岛上，点角色进入普通聊天；Mira Tree 是许愿树</td><td>聊天走 OpenRouter；创建信息不发给第三方</td><td>聊天 1 Star/条。本次点树 +9 Stars</td><td><span class="tag c1">C1</span><span class="tag c4">C4</span></td></tr>
+<tr><td>天气提醒</td><td>授权定位后，角色根据当地天气发关心消息</td><td>—</td><td>免费</td><td><span class="tag c1">C1</span> 未开启</td></tr>
+<tr><td>其他</td><td>换壁纸、换气泡、邀请码、站内信、拉黑、举报</td><td>—</td><td>—</td><td><span class="tag c1">C1</span><span class="tag c2">C2</span></td></tr>
+</table>
+
+<h2 id="s6b">6.1 Miao Island：一座只属于自己的岛，点角色就进聊天</h2>
+<p>底部第三个 Tab（Meow）打开的是一张可以拖动的插画地图，不是角色列表。2026-11-20 用同一个测试账号走完了创建、聊天和领 Stars。</p>
+<div class="gallery">
+<figure><img src="shots/60_miao_empty_plots.png" alt=""><figcaption><b>60 空岛</b>沙滩上是一格格虚线地块，中间是心形的 Mira Tree。右上角是写作指南和关闭</figcaption></figure>
+<figure><img src="shots/61_miao_recipe.png" alt=""><figcaption><b>61 写作指南</b>「The Recipe for a Swoon-Worthy Character」，五步教你怎么写人设</figcaption></figure>
+<figure><img src="shots/67_miao_create_form.png" alt=""><figcaption><b>67 创建 Milo</b>昵称、性别（Non-binary / She / He）、简介、口头禅、第一句话。头像沿用默认猫，没有上传照片</figcaption></figure>
+<figure><img src="shots/71_miao_resident.png" alt=""><figcaption><b>71 入住</b>生成后 Milo 出现在岛上，旁边多了一座小屋。点名牌直接进入聊天</figcaption></figure>
+<figure><img src="shots/70_miao_chat.png" alt=""><figcaption><b>70 和他聊天</b>第一句就是表单里写的「I kept the light on」。回复用上了简介里的灯塔看守人设定，走普通聊天，1 Star</figcaption></figure>
+<figure><img src="shots/72_miao_tree_wish.png" alt=""><figcaption><b>72 Mira Tree</b>点树弹出「Your wish has been heard! 9 Stars dropped for you!」余额 56 → 64（其中 −1 是上面那条消息）</figcaption></figure>
+<figure><img src="shots/79_miao_lighthouse.png" alt=""><figcaption><b>79 灯塔</b>南岸有一座灯塔。这次点它没有弹出界面。安装包里还有许愿井的图，地图上没找到</figcaption></figure>
+</div>
+<div class="box"><h4>它实际是什么 <span class="tag c1">C1</span></h4>
+<ul>
+<li><b>创建入口有两个：</b>空地块上的加号，以及右上角的加号。表单必填昵称、性别、简介，口头禅和第一句话选填。点 Generate 后角色立刻出现在岛上，旁边生成一座小屋。</li>
+<li><b>写作指南是给用户的提示词模板，</b>不是给模型的隐藏设定。五步：核心感觉（身份 + 性格 + 和你的关系）、基本信息、用行为写性格、内心欲望、你们之间留一个没解决的问题。例子是「冷静的外科医生，也是失联多年的青梅竹马」。</li>
+<li><b>点岛上的角色进入的是普通聊天。</b>第一句气泡就是表单里的 First message。我问「Are you the lighthouse keeper?」，他回答「That's me.」，并写了灯塔扫过水面的动作描写。聊天页有 Mode、加号和「All messages in this chat are generated by AI」。没换头像时，背景是默认的猫吉祥物。</li>
+<li><b>Mira Tree 就是许愿树。</b>点一次掉 9 Stars，当天再点就提示「树在休息，明天再来许愿」。南岸灯塔点了几次都没有反应。</li>
+<li><b>角色不公开。</b>欢迎信写可以捏宠物、理想型、本命、前任，甚至每天陪你的咖啡杯。隐私政策写明这些角色只有自己能看到，创建字段不发给 OpenRouter 和 xAI；一旦开始聊天，聊天内容仍按普通对话处理 <span class="tag c4">C4</span>。</li>
+</ul></div>
+<div class="box"><h4>能长大吗？岛本身不长，只会多住人 <span class="tag c1">C1</span></h4>
+<p>按实测和安装包里的文案，Miao Island 没有等级、经验、好感度，也没有扩建。能变化的只有两样：岛上的居民数量，以及从许愿树拿到的 Stars。</p>
+<table>
+<tr><th>问题</th><th>规则（来源）</th><th>实测</th></tr>
+<tr><td>能住多少人？</td><td>空地块是虚线加号，创建时的文案写「Choose an empty spot on the island」，即一个角色占一格。文案里没找到扩建入口，满岛上限未测</td><td>看到多格空地（截图 60）</td></tr>
+<tr><td>角色会升级吗？</td><td>居民数据只有格位 position、小屋样式 houseStyle、角色 agent（id、头像、名字、status）、greetings。没有等级、经验、好感度字段</td><td>聊天、许愿前后，名牌和小屋外观没有变化（截图 71、72、81）</td></tr>
+<tr><td>小屋会变吗？</td><td>小屋图共 18 款（meow_house_01 至 18）。样式由创建结果返回；用户选择样式的入口未找到</td><td>测试角色得到的是 Milo 的小屋，没看到换样式入口</td></tr>
+<tr><td>许愿树能领多少？</td><td>每天一次，文案「The tree is resting now. Come make a wish tomorrow!」。每次掉落的 Stars 数额由接口返回（amount）；是否随机未确认</td><td>第一次 +9；当天再点提示「树在休息」（截图 80）</td></tr>
+<tr><td>灯塔和小尾巴？</td><td>引导文案：「别忘了找许愿树和时不时溜出来的猫尾巴，轻点它们，可能随机掉落 Stars」。灯塔有「Please turn up your volume!」的提示</td><td>灯塔点了几次，没有界面反应（截图 79、82）。小尾巴没找到，未测</td></tr>
+<tr><td>和角色聊天会变亲近吗？</td><td>应用内文案写「聊得越多，他记得你喜欢什么」，这是聊天记忆，不是岛上的数值</td><td>未对比聊天前后的记忆变化</td></tr>
+</table>
+<p><b>结论：</b>Miao Island 的「长大」是陈列式的。每建一个角色占一格，每天能从许愿树领一次 Stars，岛的外观不随使用变化。成长感来自 Stars 和聊天，不来自岛本身。</p>
+<div class="gallery">
+<figure><img src="shots/81_miao_island_overview.png" alt=""><figcaption><b>81 岛面貌</b>Milo 的小屋（左上，名牌点进聊天）、许愿树、南岸灯塔。岛的外观和首次进入时一样</figcaption></figure>
+<figure><img src="shots/80_miao_tree_rest.png" alt=""><figcaption><b>80 许愿树冷却</b>同一天第二次点树：「The tree is resting now. Come make a wish tomorrow!」</figcaption></figure>
+<figure><img src="shots/82_miao_lighthouse_retry.png" alt=""><figcaption><b>82 灯塔再点</b>又点了几次灯塔，没有任何提示或界面变化</figcaption></figure>
+</div>
+</div>
+<p>和 Feva 的 Create 不一样：Feva 的创作是公开内容供给，要机审、要进首页分发。Miao Island 的创作是私人玩具，不审核、不给别人看，地图只是这些角色的陈列方式。</p>
+
+<h2 id="s7">7. 商业化：一种货币 + 一档订阅 + 大量激励广告</h2>
+<div class="gallery">
+<figure><img src="shots/41_profile_tab_redacted.png" alt=""><figcaption><b>41 Profile</b>My Diary、天气提醒、My Stars 42、7 日签到、看广告每条 5 Stars（0/30）、邀请活动（已打码）</figcaption></figure>
+<figure><img src="shots/42_checkin_redacted.png" alt=""><figcaption><b>42 签到成功</b>+14 Stars，附每日情话（已打码）</figcaption></figure>
+<figure><img src="shots/43_stars_store.png" alt=""><figcaption><b>43 Stars 商店</b>「Out of Stars」；Coming Soon：语音通话、日程更新、视频通话、情侣空间</figcaption></figure>
+<figure><img src="shots/44_pass.png" alt=""><figcaption><b>44 Insider Pass</b>$19.99/月：随时 Peek、每月 800 Stars、签到 1.5 倍</figcaption></figure>
+</div>
+<div class="two">
+<table>
+<tr><th>Stars 包</th><th>价格</th><th>每 100 Stars</th><th>每条消息</th></tr>
+<tr><td>100</td><td>$4.99</td><td>$4.99</td><td>$0.050</td></tr>
+<tr><td>200 + 50</td><td>$9.99</td><td>$4.00</td><td>$0.040</td></tr>
+<tr><td>400 + 200（Hot）</td><td>$19.99</td><td>$3.33</td><td>$0.033</td></tr>
+<tr><td>800 + 700</td><td>$39.99</td><td>$2.67</td><td>$0.027</td></tr>
+<tr><td>1,400 + 1,400</td><td>$69.99</td><td>$2.50</td><td>$0.025</td></tr>
+<tr><td>2,000 + 6,000（Best Deal）</td><td>$99.99</td><td>$1.25</td><td>$0.0125</td></tr>
+<tr><td>Insider Pass（800/月）</td><td>$19.99/月</td><td>$2.50 + Peek 权益</td><td>—</td></tr>
+</table>
+<table>
+<tr><th>免费来源</th><th>数额</th></tr>
+<tr><td>7 日签到</td><td>14 / 88 / 37 / 47 / 47 / 57 / 143，共 433；Pass 用户 1.5 倍</td></tr>
+<tr><td>激励广告</td><td>每条 5，每天最多 30 条（150）</td></tr>
+<tr><td>Miao Island 许愿树</td><td>每天一次。第一次点 +9 Stars；当天再点提示「树在休息，明天再来许愿」</td></tr>
+<tr><td>邀请好友</td><td>限时活动「Bring Mira to those around you」</td></tr>
+<tr><td>注册赠送</td><td>Play 文案「Receive Stars upon registration」</td></tr>
+</table>
+</div>
+<p><b>拆解：</b>Mira 的免费额度很高：签到平均每天约 62 个，看满 30 条广告再加 150 个，重度用户每天可以免费聊 200 条左右。这说明它的收入很大一部分来自广告，而不是逼用户充值；评论里「tokens easy to get」也印证了这一点 <span class="tag c4">C4</span>。付费端价格梯度很陡：最小包每条消息 5 美分，最大包只要 1.25 美分，相差 4 倍，引导大额充值。订阅只有一档，卖的不是 Stars，而是 Peek。Play 文案写「STARS: ONLY FOR MESSAGES」，但实际 Stars 也用于角色手机解锁和 OurSnap 相纸，文案与实现不完全一致 <span class="tag c2">C2</span><span class="tag c3">C3</span>。</p>
+
+<h2 id="s8">8. 技术栈与数据侧</h2>
+<div class="two">
+<div class="box"><h4>客户端与 SDK <span class="tag c2">C2</span></h4>
+<ul>
+<li><b>框架：</b>Kotlin + Jetpack Compose；Koin 风格依赖注入；libgdx（Miao Island 地图与动画）</li>
+<li><b>共享中台：</b><code>com.scietrain.ai</code>（network、payment/google、realtime、storage、logger、多语言模型选择）</li>
+<li><b>保护：</b>PairIP（Play 完整性校验，侧载即拦截）+ <code>libsigner.so</code>（推断用于请求签名 <span class="tag c3">C3</span>）</li>
+<li><b>归因与分析：</b>Adjust、Meta SDK（隐私政策写明）、Firebase Analytics / Crashlytics / Messaging；自建增长上报 <code>growth.westlake.ink</code>，公共字段 18 个（含 adjustId、campaign、adGroup、creative、ip）</li>
+<li><b>变现：</b>Google Play Billing、AdMob 激励广告 + UMP 同意弹窗</li>
+<li><b>登录：</b>Credential Manager + Google ID；另有给商店审核用的邮箱密码登录（<code>login_review_*</code>）</li>
+</ul></div>
+<div class="box"><h4>模型与部署 <span class="tag c4">C4</span><span class="tag c2">C2</span></h4>
+<ul>
+<li>聊天：OpenRouter（多模型路由，具体模型未知）</li>
+<li>角色主动发图：xAI</li>
+<li>自有模型：PlotSnap、OurSnap、日记、His Day、角色手机、TTS</li>
+<li>生产 API：<code>api.lovemirachat.me</code>；测试：<code>mira-test.heyfriday.cn</code></li>
+<li>17 种界面语言；实测内容语言不跟随系统语言（系统 en-US，日记英文，角色回复和日程却是繁体中文），推断按账号历史或 IP 区域决定 <span class="tag c3">C3</span></li>
+</ul></div>
+</div>
+<h3>API 家族（57 条）</h3>
+<table>
+<tr><th>家族</th><th>数量</th><th>说明</th></tr>
+<tr><td>users</td><td>9</td><td>资料、头像、昵称、Stars 余额与流水、通知、角色眼中的你（<code>profile/agents</code>）</td></tr>
+<tr><td>our-snap</td><td>9</td><td>姿势模板、自拍上传、生成、相纸（已拥有 / 未拥有）</td></tr>
+<tr><td>user-diaries · diaries</td><td>6 · 1</td><td>日历、概览、贴纸、图片、角色反应；角色日记未读通知</td></tr>
+<tr><td>dialogues</td><td>6</td><td>会话、未读、壁纸、Peek 日程、角色手机</td></tr>
+<tr><td>whispers</td><td>5</td><td>Love Q&amp;A：广场、我的、浏览、举报</td></tr>
+<tr><td>其他</td><td>22</td><td>miao-isle、iaa（激励广告资格）、check-ins、invite-codes、mailbox、memory-fragments、purchases、skus、server/maintenance</td></tr>
+</table>
+<h3>埋点前缀 Top（302 条候选）</h3>
+<p>diary 31 · peek 27 · home 25 · agent 22 · meow 21 · oursnap 20 · login 18 · chats 17 · chat 17 · voice 13 · weather 11 · whispers 10 · purchase 7 · pass 6 · plotsnap 4。<br>
+日记和 Peek 的埋点最多，说明团队把「偷看」当作当前的主攻方向。Peek 下有 <code>peek_push_modal_*</code>、<code>peek_turnoff_modal_*</code>（关闭挽留弹窗）和 <code>peek_proactive_msg_send</code>，说明 Peek 同时承担了推送召回的作用 <span class="tag c3">C3</span>。</p>
+
+<h2 id="s9">9. 证据分级</h2>
+<table>
+<tr><th>结论</th><th>状态</th><th>依据</th></tr>
+<tr><td>只面向女性，角色为男性</td><td><b>已证实</b></td><td>Play 文案；截图 52 欢迎信；埋点 <code>diary_talk_with_him</code></td></tr>
+<tr><td>四种聊天模式均为 1 Star/条</td><td><b>已证实</b></td><td>截图 33</td></tr>
+<tr><td>Stars 六档价格；Insider Pass $19.99/月及权益</td><td><b>已证实</b></td><td>截图 43、44（US 区价格）</td></tr>
+<tr><td>7 日签到共 433，激励广告每条 5、每天 30 条</td><td><b>已证实</b></td><td>截图 41、42；余额 42→56</td></tr>
+<tr><td>Peek 72 小时免费试用，之后需 Pass</td><td><b>已证实</b></td><td>截图 31、44</td></tr>
+<tr><td>日记授权后角色数秒内阅读并写读后感</td><td><b>已证实</b></td><td>截图 49、53、54</td></tr>
+<tr><td>Miao Island 自建角色点进去是普通聊天，第一句用表单原文；Mira Tree 点一次 +9 Stars</td><td><b>已证实</b></td><td>截图 67、70、71、72；余额 56→64（−1 消息，+9 许愿）</td></tr>
+<tr><td>Miao Island 没有等级、经验或好感度；许愿树每天一次；小尾巴和灯塔未见反馈</td><td><b>已证实（否定结论）</b></td><td>截图 80、81、82；数据结构只有 position、houseStyle、agent、greetings（静态分析，<code>meow/data</code> 下的 DTO）。小尾巴未找到</td></tr>
+<tr><td>聊天走 OpenRouter，角色发图走 xAI，其余自有模型</td><td>公开资料</td><td>隐私政策（2026-11-11）</td></tr>
+<tr><td>角色手机需密码，可用 Stars 解锁</td><td>推断，界面未触发</td><td>API <code>character-phone</code> + 埋点 <code>peek_phone_*</code> + 隐私政策</td></tr>
+<tr><td>OurSnap 相纸单独售卖</td><td>推断</td><td>API <code>photo-papers/unowned</code> + 埋点 <code>oursnap_film_purchase_*</code></td></tr>
+<tr><td>研发团队在中国大陆</td><td>推断</td><td>测试域名 <code>heyfriday.cn</code></td></tr>
+<tr><td>内容语言按账号或 IP 区域决定</td><td>推断</td><td>系统 en-US，但日程和读后感为繁体中文</td></tr>
+<tr><td>Inner Voice、Snap it 单次消耗</td><td>待验证</td><td>没有找到 Stars 流水入口</td></tr>
+<tr><td>下载、收入、地区分布</td><td>待验证</td><td>本轮未获取 SensorTower</td></tr>
+<tr><td>Data safety 与实际数据处理是否一致</td><td>待验证</td><td>Play 只声明收集设备 ID，但应用存储聊天、日记、自拍；需对照完整声明与抓包</td></tr>
+</table>
+
+<h2 id="s10">10. 风险与对 Feva 的启示</h2>
+<div class="two">
+<div class="box"><h4>Mira 的风险</h4>
+<ul>
+<li><b>记忆衰退：</b>评论最集中的问题。30–50 轮后混淆人名和关系，第二周遗忘、复读。偷看玩法越多，角色状态越复杂，前后矛盾的代价也越高。</li>
+<li><b>「窥视」的伦理边界：</b>偷看手机、偷看日程、占有欲人设，可能被批评为美化控制型关系。隐私政策专门声明「角色手机是虚构的，不是访问真人设备」，说明团队已经意识到这一点。</li>
+<li><b>语言不一致：</b>系统语言是英文，角色却用繁体中文回复，海外新用户可能会困惑。</li>
+<li><b>文案与实现不符：</b>Play 写「Stars 只用于发消息」，但角色手机和相纸也收 Stars；Data safety 声明较少。</li>
+<li><b>依赖第三方模型：</b>聊天走 OpenRouter，成本和合规受上游影响；Mature 内容在 xAI 出图上会遇到审核拦截。</li>
+</ul></div>
+<div class="box"><h4>Feva 可借鉴</h4>
+<ul>
+<li><b>把「窥视」当成核心情绪：</b>内心独白、日程、日记这类「不需要用户输入就能消费」的内容，可以填补用户不聊天的时段。</li>
+<li><b>双向日记：</b>用户写日记，角色读后留言，再一键回到聊天。用户投入的是真实生活，角色反馈的是关注，比单纯聊天更有黏性。</li>
+<li><b>日程驱动的主动消息：</b>先生成角色的一天，再按时间点发报备消息，让主动消息有依据，而不是随机推送。</li>
+<li><b>即时反馈按钮：</b>把复读、语言错、动作描写过多做成一键修正，用户感到「他听我的」。</li>
+<li><b>订阅只卖一个独占体验：</b>Insider Pass 的核心是「随时 Peek」，比堆一堆权益更好理解。</li>
+<li><b>feed 内直接开聊：</b>全屏角色卡 + 底部输入框，把选择角色和第一句话合成一步。</li>
+</ul></div>
+</div>
+<div class="box" style="margin-top:16px"><h4>Feva 应避免</h4>
+商店文案与实际计费不一致；内容语言与用户界面语言不一致；在占有欲题材上没有设置边界（建议在「偷看」类玩法里保留用户的控制权，例如日记默认私密、可随时撤回授权，Mira 这一点做得对）。长线记忆需要先打好基础，再叠加多条共享角色状态的玩法，否则矛盾会被放大。</div>
+
+<h3>与 BIMOBIMO 对比</h3>
+<table>
+<tr><th>维度</th><th>Mira</th><th>BIMOBIMO</th></tr>
+<tr><td>用户</td><td>18+ 女性，言情和乙游题材，官方原创角色</td><td>15–30 岁追星女性，K-pop、乙游，UGC 角色</td></tr>
+<tr><td>核心钩子</td><td>偷看他（内心、日程、手机）+ 他偷看你的日记</td><td>角色主动开场、连续天数、约会、通话</td></tr>
+<tr><td>内容供给</td><td>官方角色 + 私有自建角色（不公开）</td><td>几乎全部 UGC，带公开创作者</td></tr>
+<tr><td>聊天计费</td><td>1 Star/条，4 种模式同价</td><td>1 橡果/轮，模型分免费与 Pro</td></tr>
+<tr><td>订阅</td><td>1 档 $19.99/月，卖 Peek</td><td>4 档 $9.99–$299.99，卖通话时长和 Pro 模型</td></tr>
+<tr><td>免费额度</td><td>签到 433/周 + 广告 150/天，偏高</td><td>签到 ≤510/周 + 广告，次日过期</td></tr>
+<tr><td>技术</td><td>原生 Kotlin + Compose；OpenRouter + xAI + 自有模型</td><td>Flutter + Rust；腾讯 TRTC</td></tr>
+</table>
+
+<h2 id="s11">11. 附录：文件索引</h2>
+<table>
+<tr><th>内容</th><th>路径（相对 <code>05_调研/竞品/Mira/</code>）</th></tr>
+<tr><td>本报告</td><td><code>01_产品调研/2026-11-19_Mira_竞品调研.html</code></td></tr>
+<tr><td>公开资料来源</td><td><code>02_市场数据/PROVENANCE.md</code></td></tr>
+<tr><td>截图（62 张）</td><td><code>03_图表截图/2026-11-19_Android_v1.3.6/</code></td></tr>
+<tr><td>范围与边界</td><td><code>04_技术调研/Android_v1.3.6/scope.md</code></td></tr>
+<tr><td>逆向与实测报告</td><td><code>04_技术调研/Android_v1.3.6/reports/2026-11-19_Mira-Android-v1.3.6_逆向与实测.md</code></td></tr>
+<tr><td>派生清单</td><td><code>04_技术调研/Android_v1.3.6/analysis/derived/</code>：api_paths.txt（57）、events_candidates.txt（302）、hosts_urls.txt（83）</td></tr>
+<tr><td>安装包哈希与清单</td><td><code>04_技术调研/Android_v1.3.6/input/</code>：SHA256SUMS、xapk_manifest.json</td></tr>
+</table>
+<p class="note">点击任意截图可放大查看。</p>
+
+<footer>Mira 竞品调研 · 遵循 02_产品/03_拆解方法 SOP · 原始安装包与反编译产物未入库 · 2026-11-19</footer>
+</main>
+<div id="lb" onclick="this.style.display='none'"><img alt=""></div>
+<script>
+document.querySelectorAll('figure img').forEach(i=>i.addEventListener('click',()=>{const l=document.getElementById('lb');l.querySelector('img').src=i.src;l.style.display='flex'}));
+</script>
+</body>
+</html>
