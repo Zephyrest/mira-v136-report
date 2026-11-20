@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>抄 Mira 首页与小岛 · Feva 改版方案 · 2026-11-20</title>
+<style>
+:root{--ink:#1d1b20;--sub:#5f5a66;--line:#e7e2ea;--bg:#faf8fb;--card:#fff;--accent:#c2346b;--ok:#1f8a5b;--warn:#c27c0e}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue",sans-serif;color:var(--ink);background:var(--bg);line-height:1.65;font-size:15px}
+header{background:linear-gradient(120deg,#ffd3e2,#f3e6ff);padding:48px 0 36px;border-bottom:1px solid var(--line)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+h1{font-size:34px;margin:0 0 6px;letter-spacing:-.5px}
+h2{font-size:23px;margin:56px 0 14px;padding-top:8px;border-top:1px solid var(--line)}
+h3{font-size:17px;margin:28px 0 10px}
+.meta{color:var(--sub);font-size:13.5px}
+nav{position:sticky;top:0;background:rgba(250,248,251,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);z-index:5}
+nav .wrap{display:flex;gap:18px;overflow-x:auto;padding-top:10px;padding-bottom:10px;font-size:13.5px;white-space:nowrap}
+nav a{color:var(--sub);text-decoration:none}nav a:hover{color:var(--accent)}
+.tldr{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:18px 22px;margin-top:28px}
+.tldr li{margin:6px 0}
+table{border-collapse:collapse;width:100%;background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:10px 0 6px;font-size:14px}
+th,td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:#f3eff5;font-weight:600}
+tr:last-child td{border-bottom:0}
+code{background:#f1edf3;padding:1px 5px;border-radius:4px;font-size:12.5px}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;margin:14px 0}
+figure{margin:0;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px}
+figure img{width:100%;border-radius:8px;display:block;cursor:zoom-in;aspect-ratio:9/20;object-fit:cover;object-position:top}
+figcaption{font-size:12.5px;color:var(--sub);padding:6px 2px 2px;line-height:1.45}
+figcaption b{color:var(--ink);display:block;font-size:13px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:12px 0}
+.box h4{margin:0 0 6px;font-size:15px}
+.box.take{border-left:4px solid var(--ok)}
+.box.skip{border-left:4px solid var(--warn)}
+ol.tight li,ul.tight li{margin:6px 0}
+.note{color:var(--sub);font-size:13px}
+#lb{position:fixed;inset:0;background:rgba(20,16,24,.88);display:none;align-items:center;justify-content:center;z-index:20;cursor:zoom-out}
+#lb img{max-height:94vh;max-width:94vw;border-radius:10px}
+footer{margin:70px 0 40px;color:var(--sub);font-size:12.5px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<h1>抄 Mira 首页与小岛</h1>
+<div class="meta">Feva 改版方案 · 草案，未进 PRD · 2026-11-20 · 依据 Mira Android v1.3.6 实机走查 · 对照 Feva 1.1.0 / 1.2.0 / 1.3.3</div>
+<div class="tldr"><b>一句话：</b>首页可以抄成全屏竖滑卡，卡片上直接发第一句。小岛只抄「把自己的角色摆出来」，放在 Me · Created，不抄树、灯塔和掉落。聊天气泡改成一次回复拆成多颗，旁白灰、对白白。公开创作、机审、Role Card、充值和计费都不动。
+<ul>
+<li><b>首页：</b>封面铺满，开场白和输入框压在卡上。@{creator} 和互动数留着。</li>
+<li><b>小岛：</b>Me · Created 增加「列表 | 小岛」。Create 仍是单页表单，不改。</li>
+<li><b>气泡：</b>一次模型回复仍是一条消息、扣一次费。拆开只发生在展示层。1.2.0 里「旁白格式不变」要先改。</li>
+</ul></div>
+</div></header>
+
+<nav><div class="wrap">
+<a href="#s2">2 Mira 原样</a>
+<a href="#s3">3 首页</a>
+<a href="#s4">4 小岛</a>
+<a href="#s5">5 气泡</a>
+<a href="#s6">6 待决策</a>
+<a href="#s7">7 验证</a>
+</div></nav>
+
+<main class="wrap">
+
+<h2 id="s2">2. Mira 这两页实际是什么</h2>
+<table>
+<tr><th>页面</th><th>Mira 怎么做</th><th>图</th></tr>
+<tr><td>首页</td><td>全屏竖滑角色卡。卡上是场景简介、角色台词、标签，底部就是输入框。在卡上发出第一句就进聊天，中间没有详情页。</td><td>10、12、15</td></tr>
+<tr><td>小岛</td><td>底部 Tab 打开一张可拖动的插画地图。空地块是虚线加号，每个私有角色占一格，旁边一座小屋。点名牌直接进普通聊天。树和灯塔是装饰，外加每天一次的小福利。</td><td>60、71、81</td></tr>
+<tr><td>聊天气泡</td><td>一次回复拆成多个气泡。动作是灰字，台词是白字，各自一颗。</td><td>16、17</td></tr>
+</table>
+<p>岛上每个居民只有格位、小屋样式和角色信息，没有等级、经验、好感度。岛的价值是把角色摆出来，不是让岛长大。</p>
+
+<h3>首页原样</h3>
+<div class="gallery">
+<figure><img src="../shots/10_home_feed.png" alt=""><figcaption><b>10 首页</b>全屏角色卡：场景、台词、标签，底部输入框</figcaption></figure>
+<figure><img src="../shots/11_intro_expand.png" alt=""><figcaption><b>11 展开简介</b>第二人称开场，点开才看全文</figcaption></figure>
+<figure><img src="../shots/12_feed_card2.png" alt=""><figcaption><b>12 下一张</b>竖滑换人，标签直接写在卡上</figcaption></figure>
+<figure><img src="../shots/14_tab_mature.png" alt=""><figcaption><b>14 分类</b>题材横滑。Feva 继续用自己的标签池，不抄这套</figcaption></figure>
+<figure><img src="../shots/15_feed_inline_typing.png" alt=""><figcaption><b>15 卡上直接打字</b>发出去就进入聊天，没有详情页这一步</figcaption></figure>
+</div>
+
+<h3>小岛原样</h3>
+<div class="gallery">
+<figure><img src="../shots/60_miao_empty_plots.png" alt=""><figcaption><b>60 空岛</b>虚线地块是空位，中间是许愿树。Feva 只取「一格一个角色」</figcaption></figure>
+<figure><img src="../shots/71_miao_resident.png" alt=""><figcaption><b>71 住进来</b>生成后出现名牌和一座小屋，点名牌进聊天</figcaption></figure>
+<figure><img src="../shots/70_miao_chat.png" alt=""><figcaption><b>70 点进去就是普通聊天</b>第一句用创建时写的开场白</figcaption></figure>
+<figure><img src="../shots/81_miao_island_overview.png" alt=""><figcaption><b>81 全貌</b>小屋、树、灯塔。外观不随使用变化</figcaption></figure>
+</div>
+
+<h3>气泡原样</h3>
+<div class="gallery">
+<figure><img src="../shots/16_chat_first_reply.png" alt=""><figcaption><b>16 第一轮</b>动作灰字、台词白字，已经是分开的气泡</figcaption></figure>
+<figure><img src="../shots/17_chat_reply_full.png" alt=""><figcaption><b>17 一整轮</b>一次回复拆成多颗，读起来像在聊天</figcaption></figure>
+</div>
+
+<h2 id="s3">3. 首页怎么改</h2>
+<h3>现在</h3>
+<p>1.2.0 的首页是角色卡加标签和互动数，底部有 @{creator}。点卡片直接开聊，点头像进详情。For You、Popular、Trending、Latest 四个 Tab 的排序不动。</p>
+<h3>改成</h3>
+<ol class="tight">
+<li><b>卡片全屏竖滑。</b>封面铺满，一张卡一屏。对照截图 10、12。</li>
+<li><b>开场白压在卡上。</b>用第 5 节的气泡，只放一两句，点开看全文。对照截图 11。</li>
+<li><b>底部就是输入框。</b>在卡上发出第一句，等于用默认 Role Card 建会话并送出，不先跳进聊天页。对照截图 15。</li>
+<li><b>卡上留下这些：</b>角色名、标签、@{creator}（只展示，不能从这里进主页）、互动数。浏览数继续不展示。</li>
+<li><b>点封面开聊，不带输入。</b>点头像进角色详情，沿用 1.2.0。</li>
+<li><b>四个 Tab 和排序不变。</b>只改卡片长什么样，不改分发给谁。1.3.3 的会话列表插卡不受影响。</li>
+</ol>
+<div class="box take"><h4>抄</h4><p>全屏卡、开场白压在画面上、底部输入框、竖滑换人。</p></div>
+<div class="box skip"><h4>不抄</h4>
+<ul class="tight">
+<li>Mira 的卡上没有创作者和互动数。Feva 留着，创作者分发还在。</li>
+<li>Mira 用性别加题材筛选（截图 14）。Feva 继续用 1.1.0 的标签池。</li>
+</ul></div>
+
+<h2 id="s4">4. 小岛怎么改</h2>
+<h3>放在 Me · Created</h3>
+<p>1.1.0 写明：点 Create 直接进入单页创作表单，不设独立的 Create 首页。所以小岛不放进 Create，Create 表单保持原样。</p>
+<ul class="tight">
+<li>Me · Created 顶部加一个切换：<b>列表 | 小岛</b>。默认仍是现在的九宫格和状态角标。</li>
+<li>小岛里能看到本人的全部角色：Public、Private、审核中、未通过。状态用角标区分。</li>
+</ul>
+<h3>格子里放什么</h3>
+<ul class="tight">
+<li>一个角色占一格。格子用角色封面，没有封面就用占位图。对照截图 60 的空位、截图 71 的小屋。</li>
+<li>点格子进入这个角色的聊天。对照截图 70。</li>
+<li>长按弹出现在已有的菜单：编辑、置顶、公开或私密、删除。</li>
+<li>空格子是「创建新角色」，点进去仍是 Create 表单。</li>
+</ul>
+<div class="box take"><h4>抄</h4><p>一格一个自己的角色，点一下就进聊天。对照截图 60、71、70。</p></div>
+<div class="box skip"><h4>不抄</h4>
+<p>许愿树、灯塔、随机掉落、插画地图和拖动。Feva 没有 Stars，充值货架是主线。本期用网格，不做一张能拖的地图。名字建议用「我的角色」或 My Cast，不叫 Miao Island。</p>
+<div class="gallery">
+<figure><img src="../shots/72_miao_tree_wish.png" alt=""><figcaption><b>72 许愿树</b>点一次掉 Stars。Feva 不抄</figcaption></figure>
+<figure><img src="../shots/80_miao_tree_rest.png" alt=""><figcaption><b>80 每天一次</b>当天再点会说树在休息。Feva 不抄</figcaption></figure>
+<figure><img src="../shots/79_miao_lighthouse.png" alt=""><figcaption><b>79 灯塔</b>装饰。点了几次没有界面。Feva 不抄</figcaption></figure>
+<figure><img src="../shots/82_miao_lighthouse_retry.png" alt=""><figcaption><b>82 再点灯塔</b>仍然没有反馈。Feva 不抄</figcaption></figure>
+</div>
+</div>
+<p>不新增字段。小岛读的就是 Me · Created 那一份角色数据。审核状态和是否公开仍是两个字段，不合成一个。</p>
+
+<h2 id="s5">5. 聊天气泡怎么改</h2>
+<h3>现在</h3>
+<p>1.2.0 已经去掉头像、把气泡加宽：AI 在左，用户在右。旁白、对白、加粗的格式写明和 1.1.0 一样，都待在同一颗气泡里。重新生成和生图的版本切换挂在最新一颗 AI 气泡上。</p>
+<div class="gallery">
+<figure><img src="../shots/16_chat_first_reply.png" alt=""><figcaption><b>16 要抄的拆法</b>灰字动作和白字台词分成两颗</figcaption></figure>
+<figure><img src="../shots/17_chat_reply_full.png" alt=""><figcaption><b>17 一整轮</b>多颗气泡仍算这一次回复</figcaption></figure>
+</div>
+<h3>改成</h3>
+<ol class="tight">
+<li><b>一次回复拆成多颗气泡。</b>按段落拆，一段一颗。对照截图 17。</li>
+<li><b>旁白和对白分开。</b>旁白灰色斜体，对白正常字重。两颗仍属于同一条消息。</li>
+<li><b>计费和存储不变。</b>一次模型回复仍是一条消息、扣一次费、存一条记录。拆开只在展示层。</li>
+<li><b>重新生成、生图切换、失败重试、生成中</b>都挂在这一轮的最后一颗气泡上，不跟着每一颗重复。</li>
+<li><b>用户自己发的不拆</b>，仍是右边一颗。</li>
+</ol>
+<div class="box skip"><h4>要先改 1.2.0，再开发</h4>
+<ul class="tight">
+<li>「旁白格式与 1.1.0 一致」改成「旁白和对白各自一颗气泡」。</li>
+<li>「超长内容不撑破气泡」补一条：单颗气泡超过约定行数就续到下一颗。</li>
+<li>同一会话多次生图保持现状：图是独立的一颗，不参与文字拆分。</li>
+</ul></div>
+
+<h2 id="s6">6. 待决策</h2>
+<table>
+<tr><th></th><th>建议</th><th>另一条路</th></tr>
+<tr><td>小岛放哪</td><td>Me · Created 里切换，见第 4 节</td><td>独立 Tab。要改底部结构，和 1.1.0 冲突</td></tr>
+<tr><td>叫什么</td><td>「我的角色」或 My Cast</td><td>沿用 Miao Island。Feva 里这个词没有上下文</td></tr>
+<tr><td>气泡按什么拆</td><td>按段落</td><td>按句子。一轮会变成十几颗，读起来碎</td></tr>
+<tr><td>卡上开场白多长</td><td>两行，点开看全文。Mira 卡上大约两三行，见截图 10、11</td><td>卡上放全文。全屏卡会被字盖住</td></tr>
+<tr><td>何时改 1.2.0</td><td>第 5 节那三处先改 PRD，再开发</td><td>先做展示、后补文档。和已发布的 PRD 对不上</td></tr>
+</table>
+
+<h2 id="s7">7. 怎么看有没有用</h2>
+<ul class="tight">
+<li><b>首页：</b>在卡片上发出第一句的比例，对比现在「点卡、进聊天、再输入」。沿用现有首页埋点，不新加事件。</li>
+<li><b>小岛：</b>Me · Created 里切到小岛的人有多少，以及从格子点进聊天的比例。</li>
+<li><b>气泡：</b>一轮回复平均拆成几颗、用户往下滚多深、重新生成的比例。</li>
+</ul>
+
+<h2 id="s8">8. 来源</h2>
+<table>
+<tr><th>内容</th><th>位置</th></tr>
+<tr><td>同文 Markdown</td><td><code>05_借鉴方案/2026-11-20_抄Mira首页与小岛_Feva改版方案.md</code></td></tr>
+<tr><td>Mira 竞品报告</td><td><a href="../">01_产品调研/2026-11-19_Mira_竞品调研.html</a> 第 3、4、6.1、6.2 节</td></tr>
+<tr><td>本页截图</td><td><code>03_图表截图/2026-11-19_Android_v1.3.6/</code>：10、11、12、14、15、16、17、60、70、71、72、79、80、81、82</td></tr>
+<tr><td>Feva 1.1.0</td><td>Create 单页表单、Me · Created 的审核态和可见性、Role Card</td></tr>
+<tr><td>Feva 1.2.0</td><td>首页点卡直接开聊；气泡改造，旁白格式写明不变</td></tr>
+<tr><td>Feva 1.3.3</td><td>会话列表插卡。本方案不改它</td></tr>
+</table>
+<p class="note">点击任意截图可放大查看。</p>
+<footer>抄 Mira 首页与小岛 · Feva 改版方案 · 草案 · 2026-11-20</footer>
+</main>
+<div id="lb" onclick="this.style.display='none'"><img alt=""></div>
+<script>
+document.querySelectorAll('figure img').forEach(i=>i.addEventListener('click',()=>{const l=document.getElementById('lb');l.querySelector('img').src=i.src;l.style.display='flex'}));
+</script>
+</body>
+</html>
